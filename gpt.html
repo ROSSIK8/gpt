@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы</title>
+    <style>
+        .review-block {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Обеспечивает учет padding и border */
+        }
+        .reviews {
+            /* max-height: 270px; */
+            /* overflow-y: scroll; */
+        }
+        .review {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        #review-text {
+            resize: none;
+        }
+        .review:last-child {
+            border-bottom: none;
+        }
+        .review p {
+            margin: 0;
+        }
+        .review-form {
+            margin-top: 20px;
+            box-sizing: border-box; /* Обеспечивает учет padding и border */
+        }
+        .review-form input, .review-form textarea {
+            width: calc(100% - 22px); /* Учёт padding и border */
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Обеспечивает учет padding и border */
+        }
+        .review-form button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            box-sizing: border-box; /* Обеспечивает учет padding и border */
+        }
+        .review-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="review-block" id="review-block">
+        <h3>Отзывы наших клиентов</h3>
+        <div class="reviews">
+            <!-- <div class="review">
+                <p>"Отличный сервис! Очень доволен работой."</p>
+                <p>- Иван Иванов</p>
+            </div>
+            <div class="review">
+                <p>"Быстро и качественно. Рекомендую!"</p>
+                <p>- Мария Петрова</p>
+            </div> -->
+        </div>
+        <div class="review-form">
+            <h4>Оставить отзыв</h4>
+            <input type="text" id="reviewer-name" placeholder="Ваше имя">
+            <textarea id="review-text" rows="4" placeholder="Ваш отзыв"></textarea>
+            <button id="submit-review">Отправить</button>
+        </div>
+    </div>
+
+    <script>
+        const reviewContainer = document.querySelector('.reviews');
+        const reviewAuthor = document.getElementById('reviewer-name');
+        const reviewText = document.getElementById('review-text');
+        const submitReview = document.getElementById('submit-review');
+
+        submitReview.addEventListener('click', () => {
+            if (reviewAuthor.value != '' && reviewText.value != '') {
+                const newReviewHTML = `<div class="review">
+                                            <p>"${reviewText.value}"</p>
+                                            <p>- ${reviewAuthor.value}</p>
+                                        </div>`
+                reviewContainer.insertAdjacentHTML('afterbegin', newReviewHTML);
+                reviewAuthor.value = '';
+                reviewText.value = '';
+            } else {
+                alert('Не тупи')
+            }
+            if (reviewContainer.offsetHeight >= 300) {
+                reviewContainer.style.maxHeight = '300px';
+                reviewContainer.style.overflowY = 'scroll';
+            }
+        })
+    </script>
+</body>
+</html>
